@@ -20,6 +20,6 @@ public class ConverterTester
         double miles = milesToMeters.convertFrom(numInput);
         double feet = milesToFeet.convertTo(miles);
         double inches = feetToInches.convertTo(feet);
-        System.out.println(numInput + " meteres is equal to " + miles + " miles, " + feet + " feet, and " + inches + " inches." );
+        System.out.println(numInput + " meters is equal to " + miles + " miles, " + feet + " feet, and " + inches + " inches." );
     }
 }
