@@ -5,6 +5,11 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.BorderLayout;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 /**
@@ -14,44 +19,89 @@ import javax.swing.JTextField;
  * @author Harold Boyett 
  * @version 2/22/2017
  */
-public class CurrencyConverterRunner extends JFrame
+public class CurrencyConverterRunner implements ActionListener
 {
     public static void main(String[] args)
-    {
-        JFrame frame = new JFrame("Test");
-        frame.setVisible(true);
-        frame.setSize(500,200);
+    {        
+       final JFrame frame = new JFrame("Currency Converter");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new GridLayout(4,2,4,4));
+        initComponents(frame);
 
-        JTextField euroToDollar = new JTextField(15);
-        JTextField dollarToEuro = new JTextField(15);
-        JTextField dollars = new JTextField(15); 
-        JTextField euros = new JTextField(15);
+        //frame.setResizable(false);
+        frame.pack();
+        frame.setVisible(true);
+        
 
-        JLabel euroToDollarLabel = new JLabel("Euro To Dollar Rate");
-        JLabel dollarToEuroLabel = new JLabel("Dollar To Euro Rate");
-        JLabel dollarsLabel = new JLabel("Dollars");
-        JLabel eurosLabel = new JLabel("Euros");
 
-        JButton button = new JButton();
-        button.setSize(new Dimension(100, 100));
-        button.setLocation(500, 350);
+    }
 
-        JPanel panel = new JPanel();
-        frame.add(panel);
-        panel.add(euroToDollarLabel);
-        panel.add(euroToDollar);
-        panel.add(dollarToEuroLabel);
-        panel.add(dollarToEuro);
-        panel.add(dollarsLabel);
-        panel.add(dollars);
-        panel.add(eurosLabel);
-        panel.add(euros);
-        panel.add(button);
+    private static void initComponents(JFrame frame)
+    {
+        final JTextField rate = new JTextField(20);
+        final JTextField dollars = new JTextField(20);
+        final JTextField euros = new JTextField(20);
+        final JLabel rateLabel = new JLabel("Rate");
+        final JLabel dollarsLabel = new JLabel("USD");
+        final JLabel eurosLabel = new JLabel("Euros");
+        final Button convertButton = new Button("Convert");
+        
+        convertButton.addActionListener(this);
 
-        euroToDollarLabel.setLocation(50, 450);
-        dollarToEuroLabel.setLocation(50, 400);
-        dollarsLabel.setLocation(500, 350);
-        eurosLabel.setLocation(500, 350);
+        /*jtf.getDocument().addDocumentListener(new DocumentListener()
+        {
+
+            @Override
+            public void insertUpdate(DocumentEvent de)
+            {
+                ta.setText(jtf.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                ta.setText(jtf.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+            //Plain text components don't fire these events.
+            }
+        });*/
+        
+        /*ta.getDocument().addDocumentListener(new DocumentListener()
+        {
+
+            @Override
+            public void insertUpdate(DocumentEvent de)
+            {
+                jtf.setText(ta.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                jtf.setText(ta.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+            //Plain text components don't fire these events.
+            }
+        });*/
+        
+       
+        
+        frame.getContentPane().add(rateLabel);
+        frame.getContentPane().add(rate);
+        frame.getContentPane().add(dollarsLabel);
+        frame.getContentPane().add(dollars);
+        frame.getContentPane().add(eurosLabel);
+        frame.getContentPane().add(euros);
+        frame.getContentPane().add(convertButton);
+        frame.getContentPane().add(new Button("Reset"));
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+       CurrencyConverter converter = new CurrencyConverter(Double.parseDouble(rate.getText));
     }
 }
